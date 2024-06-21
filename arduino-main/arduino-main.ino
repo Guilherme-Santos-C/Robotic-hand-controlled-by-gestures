@@ -8,16 +8,16 @@ Servo motor_polegar;
 
 void acionar_motor(Servo motor, char intensidade) {
   if(intensidade == '0') {
-    motor.write(0);
-  }
-  else if(intensidade == '1') {
     motor.write(60);
   }
+  else if(intensidade == '1') {
+    motor.write(180); 
+  }
   else if(intensidade == '2') {
-    motor.write(120);
+    motor.write(180);
   }
   else if(intensidade == '3') {
-    motor.write(180);
+    motor.write(0);
   }
 }
 
@@ -29,9 +29,9 @@ void setup() {
   motor_polegar.attach(10);
   Serial.begin(9600);
   // Aguarda até que a porta serial esteja pronta
-  while (!Serial) {
-    ; // Espera até que a porta serial esteja conectada
-  }
+ while (!Serial) {
+   ; // Espera até que a porta serial esteja conectada
+ }
 }
 
 void loop() {
@@ -40,7 +40,7 @@ void loop() {
     acionar_motor(motor_indicador, forca_motores[0]);
     acionar_motor(motor_meio, forca_motores[1]);
     acionar_motor(motor_anelar, forca_motores[2]);
-    acionar_motor(motor_mindinho, forca_motores[3]]);
+    acionar_motor(motor_mindinho, forca_motores[3]);
     acionar_motor(motor_polegar, forca_motores[4]);
   }
 }
