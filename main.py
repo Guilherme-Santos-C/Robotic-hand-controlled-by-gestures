@@ -4,7 +4,7 @@ import serial
 
 while True: #Loop para a conexão com o Arduino
     try:  #Tenta se conectar, se conseguir, o loop se encerra
-        arduino = serial.Serial('COM6', 9600)
+        arduino = serial.Serial('COM4', 9600)
         print('Arduino conectado')
         break
     except:
@@ -21,7 +21,7 @@ if webcam.isOpened():
     while verification:
         verification, frame = webcam.read()
         frame_RGB = cv.cvtColor(frame, cv.COLOR_BGR2RGB)
-        key_press = cv.waitKey(2) 
+        key_press = cv.waitKey(5) 
         processar_img = Hand.process(frame_RGB)
         hands_points = processar_img.multi_hand_landmarks
         h,w,_ = frame.shape
@@ -67,8 +67,9 @@ if webcam.isOpened():
                             arduino_arr[2] = "3"
                         elif i == 20:
                             arduino_arr[3] = "3"
-                    enviar_arduino = "".join(arduino_arr) + "\n"
-                    arduino.write(enviar_arduino.encode())
+                    message = "".join(arduino_arr) + "\n"
+                    print(message.encode())
+                    arduino.write(message.encode())
         if key_press == 27:
             break
         cv.imshow("webcam", frame_RGB)
